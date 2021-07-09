@@ -2,6 +2,7 @@ import 'Field.dart';
 
 class Board {
   var fields;
+  List<Field> fieldList = List.empty(growable: true);
   int boardSize;
 
   Board(int size) {
@@ -19,6 +20,7 @@ class Board {
     while (i <= boardSize) {
       if (x >= 0) {
         fields[i][x] = new Field(i, x);
+        fieldList.add(fields[i][x]);
         print('${i}-${x}');
         x--;
       } else {
@@ -39,6 +41,7 @@ class Board {
     }
     if (y != 0) {
       neighbours.add(fields[x][y-1]);
+
     }
     if (x != boardSize) {
       neighbours.add(fields[x+1][y]);
@@ -56,5 +59,9 @@ class Board {
 
   Field getField(Field field) {
     return fields[field.getFieldX()][field.getFieldY()];
+  }
+
+  List<Field> getFieldList() {
+    return fieldList;
   }
 }
