@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:qbert/Field.dart';
 import 'package:qbert/SpriteLocations.dart';
 import 'package:qbert/TileMapWidget.dart';
+import 'package:vibration/vibration.dart';
 
 import 'Actor.dart';
 import 'Board.dart';
@@ -48,6 +49,7 @@ class QbertView extends View {
 
   @override
   Widget getEndOfGamePageContent(BuildContext context) {
+    Vibration.vibrate(duration: 300, amplitude: 150);
     return Column(children: [
       Padding(padding: EdgeInsets.fromLTRB(0, 300, 0, 100), child: Text('You won!', textScaleFactor: 0.75, style: TextStyle(fontFamily: 'Press Start', color: Colors.green, decorationColor: Colors.black))),
       Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20), child: Text('Time: ${(qbertEngine.tickCounter / 60).round()}', textScaleFactor: 0.3, style: TextStyle(fontFamily: 'Press Start', color: Colors.blue, decorationColor: Colors.black),),),
@@ -127,10 +129,10 @@ class GameLogic {
             engine.gameOver();
           }
         } else {
-        print('INVALID MOVE');
+        Vibration.vibrate(duration: 100, amplitude: 128);
       }
     }else {
-      print('INVALID MOVE');
+      Vibration.vibrate(duration: 100, amplitude: 128);
     }
     return false;
   }

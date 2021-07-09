@@ -1,4 +1,4 @@
-name: tiler_example
+name: qbert
 version: 1.0.0
 publish_to: 'none'
 
@@ -11,7 +11,12 @@ dependencies:
   provider: ^5.0.0
   tiler:
     path: ../
+  vibration: ^1.7.3
 
 flutter:
   assets:
     - assets/
+  fonts:
+    - family: Press Start
+      fonts:
+        - asset: "assets/PressStart2P-Regular.ttf"
