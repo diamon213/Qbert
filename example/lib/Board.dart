@@ -41,6 +41,7 @@ class Board {
     }
     if (y != 0) {
       neighbours.add(fields[x][y-1]);
+
     }
     if (x != boardSize) {
       neighbours.add(fields[x+1][y]);

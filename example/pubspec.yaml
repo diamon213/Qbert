@@ -15,3 +15,7 @@ dependencies:
 flutter:
   assets:
     - assets/
+  fonts:
+    - family: Press Start
+      fonts:
+        - asset: "assets/PressStart2P-Regular.ttf"

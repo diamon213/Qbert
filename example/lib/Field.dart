@@ -8,7 +8,7 @@ class Field {
   int fieldX;
   int fieldY;
   String fieldName;
-  AssetImage sprite = AssetImage('assets/blocks_30.png');
+  AssetImage sprite = AssetImage('assets/blocks_100_activated.png');
   Image activatedImage;
 
   Field(int x, int y) {
@@ -27,7 +27,7 @@ class Field {
     activatedImage = Image(image: sprite);
   }
 
-  bool checkActivated() {
+  bool isActivated() {
     return activated;
   }
 

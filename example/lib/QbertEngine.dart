@@ -42,18 +42,21 @@ class QbertEngine extends Engine {
 
 class QbertView extends View {
   final QbertEngine qbertEngine;
+  RichText titleWidget;
 
   QbertView(String title, this.qbertEngine) : super(title);
 
   @override
   Widget getEndOfGamePageContent(BuildContext context) {
-    // TODO: implement getEndOfGamePageContent
-    throw UnimplementedError();
+    return Column(children: [
+      Padding(padding: EdgeInsets.fromLTRB(0, 300, 0, 100), child: Text('You won!', textScaleFactor: 0.75, style: TextStyle(fontFamily: 'Press Start', color: Colors.green, decorationColor: Colors.black))),
+      Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20), child: Text('Time: ${(qbertEngine.tickCounter / 60).round()}', textScaleFactor: 0.3, style: TextStyle(fontFamily: 'Press Start', color: Colors.blue, decorationColor: Colors.black),),),
+      Align(alignment: Alignment.center, child: ElevatedButton(child: Text('Back to Menu'), onPressed: () {qbertEngine.state = GameState.waitForStart;},)),
+    ],);
   }
 
   @override
   Widget getRunningPageContent(BuildContext context, var game) {
-    // TODO: implement getRunningPageContent
     TileMapWidget tileMapWidget;
     if (qbertEngine.gameLogic.board.boardSize == 6) {
       tileMapWidget = new TileMapWidget('assets/qbert_xl.json', Offset(-200, 0), 0.89, qbertEngine);
@@ -65,29 +68,28 @@ class QbertView extends View {
 
   @override
   Widget getStartPageContent(BuildContext context,) {
-    // TODO: implement getStartPageContent
     return ChangeNotifierProvider<Engine>.value(
         value: qbertEngine,
         child: Scaffold(
-            backgroundColor: Colors.green,
-            appBar: AppBar(
-              title: Text("Epic GAME"),
-            ),
+            backgroundColor: Colors.black,
             body: Center(
                 child: Column(
                     children: <Widget>[
-                      MaterialButton(
-                          child: Text('Normal'),
+                      Padding(padding: EdgeInsets.fromLTRB(0, 300, 0, 100), child: Text('Q*bert', textScaleFactor: 3, style: TextStyle(color: Colors.deepOrange, fontFamily: 'Press Start')),
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(fixedSize: MaterialStateProperty.all(Size(200, 30))),
+                          child: Text('Start normal game'),
                           onPressed: () {
                             qbertEngine.startGame(4); }
                       ),
-                      MaterialButton(
-                          child: Text('XL'),
+                      ElevatedButton(
+                          style: ButtonStyle(fixedSize: MaterialStateProperty.all(Size(200, 30))),
+                          child: Text('XL game (coming soon)'),
                           onPressed: () {
-                            qbertEngine.startGame(6); }
-                      ),
-                      Text(
-                          '${qbertEngine.tickCounter}'
+                            print('Coming soon');
+                          }
+                            //qbertEngine.startGame(6); }
                       ),
                     ]
                 )
@@ -118,6 +120,7 @@ class GameLogic {
           if (goal.isPlayable()) {
             moveActor(actor, goal);
             goal.activateField();
+            checkIfWon(engine);
             print('New Location: ${goalX}-${goalY}');
             return true;
           } else {
@@ -139,6 +142,18 @@ class GameLogic {
   GameLogic(int boardSize, QbertEngine engine) {
     this.board = new Board(boardSize);
     this.locations = List.generate(boardSize + 1, (index) => List(boardSize + 1));
+  }
+
+  void checkIfWon(QbertEngine engine) {
+    bool won = true;
+    board.getFieldList().forEach((element) {
+      if (!element.isActivated()) {
+        won = false;
+      }
+    });
+    if (won) {
+      engine.state = GameState.endOfGame;
+    }
   }
 
   ActorWidget getActor() {

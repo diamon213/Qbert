@@ -34,13 +34,20 @@ class _TileMapWidgetState extends State<TileMapWidget> {
   QbertEngine gameEngine;
   ActorWidget actorWidget = new ActorWidget();
   EdgeInsets insets = EdgeInsets.fromLTRB(0, 0, 0, 0);
+  ButtonStyle buttonStyle = ButtonStyle(fixedSize: MaterialStateProperty.all(Size(64, 64)));
+  EdgeInsets controlPadding = EdgeInsets.fromLTRB(10, 10, 10, 10);
 
-  _TileMapWidgetState(this.mapFile, this.offset, this.scaleFactor, this.gameEngine);
+
+  _TileMapWidgetState(String mapFile, Offset offset, double scaleFactor, QbertEngine gameEngine) {
+    this.mapFile = mapFile;
+    this.offset = offset;
+    this.scaleFactor = scaleFactor;
+    this.gameEngine = gameEngine;
+  }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = List.empty(growable: true);
-
     for(Field field in gameEngine.getGameLogic().getBoard().getFieldList()) {
       widgets.add(
           Padding(
@@ -57,16 +64,36 @@ class _TileMapWidgetState extends State<TileMapWidget> {
     );
     widgets.add(
       Padding(
-        padding: EdgeInsets.fromLTRB(50, 50, 50, 50),
-        child: Column( children: [
-          ElevatedButton(child: Text('PRINT'),onPressed: () {}),
-
-          ElevatedButton(child: Text('MOVE DOWN LEFT'),onPressed: () {move(Directions.downLeft);}),
-          ElevatedButton(child: Text('MOVE DOWN RIGHT'),onPressed: () {move(Directions.downRight);}),
-          ElevatedButton(child: Text('MOVE UP LEFT'),onPressed: () {move(Directions.upLeft);}),
-          ElevatedButton(child: Text('MOVE UP RIGHT'),onPressed: () {move(Directions.upRight);}),
+        padding: EdgeInsets.fromLTRB(125, 650, 0, 0),
+        child: Row( children: [
+          Column(children: [
+            Padding(
+                padding: controlPadding,
+                child: ElevatedButton(style: buttonStyle, child: Image(image: AssetImage('assets/arrow_up_left.png')), onPressed: () {move(Directions.upLeft);}),
+                ),
+            Padding(
+                padding: controlPadding,
+                child: ElevatedButton(style: buttonStyle, child: Image(image: AssetImage('assets/arrow_down_left.png')), onPressed: () {move(Directions.downLeft);}),
+                ),
+          ],),
+          Column(children: [
+            Padding(
+              padding: controlPadding,
+              child: ElevatedButton(style: buttonStyle, child: Image(image: AssetImage('assets/arrow_up_right.png')), onPressed: () {move(Directions.upRight);}),
+            ),
+            Padding(
+              padding: controlPadding,
+              child: ElevatedButton(style: buttonStyle, child: Image(image: AssetImage('assets/arrow_down_right.png'),), onPressed: () {move(Directions.downRight);}),
+            ),
+          ],),
         ]),
       ),
+    );
+    widgets.add(
+      Padding(
+        padding: EdgeInsets.fromLTRB(30, 40, 0, 0),
+        child: Text('Time: ${(gameEngine.tickCounter / 60).round()}', textScaleFactor: 0.5, style: TextStyle(decorationColor: Colors.black, color: Colors.blue, fontFamily: 'Press Button')),
+      )
     );
 
     return FutureBuilder<LoadedTileMap>(
@@ -116,6 +143,7 @@ class _TileMapWidgetState extends State<TileMapWidget> {
   }
 
   void updateActorLocation(int x, int y) {
+    actorWidget.setLocation(x, y);
     insets = SpriteLocations[gameEngine.getGameLogic().getBoard().getFieldAt(x, y).getFieldName()];
     print('KEY:');
     print(SpriteLocations[gameEngine.getGameLogic().getBoard().getFieldAt(x, y).getFieldName()]);
