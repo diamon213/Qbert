@@ -32,7 +32,7 @@
          "margin":0,
          "name":"qbert",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":4,
          "tileheight":64,
          "tiles":[
                 {
@@ -44,6 +44,18 @@
                 {
                  "id":1,
                  "image":"blocks_100.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":2,
+                 "image":"blocks_96_activated.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":3,
+                 "image":"blocks_100_activated.png",
                  "imageheight":64,
                  "imagewidth":64
                 }],

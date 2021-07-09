@@ -2,7 +2,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 0, 0, 6, 6, 6, 0, 0, 0, 6, 6, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":6,
          "id":1,
          "name":"Tile Layer 1",
@@ -32,7 +32,7 @@
          "margin":0,
          "name":"qbert",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":8,
          "tileheight":64,
          "tiles":[
                 {
@@ -44,6 +44,42 @@
                 {
                  "id":1,
                  "image":"blocks_100.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":2,
+                 "image":"blocks_101.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":3,
+                 "image":"blocks_96_activated.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":4,
+                 "image":"blocks_100_activated.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":5,
+                 "image":"blocks_16.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":6,
+                 "image":"blocks_15.png",
+                 "imageheight":64,
+                 "imagewidth":64
+                }, 
+                {
+                 "id":8,
+                 "image":"blocks_30.png",
                  "imageheight":64,
                  "imagewidth":64
                 }],
